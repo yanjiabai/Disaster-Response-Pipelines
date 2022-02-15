@@ -26,5 +26,5 @@ except:
 df = pd.concat([df, categories], axis=1) # concatenate the original dataframe with the new `categories` dataframe
 df.drop_duplicates(inplace=True)
 
-engine = create_engine('sqlite:///InsertDatabaseName.db')
-df.to_sql('InsertTableName', engine, index=False)
+engine = create_engine('sqlite:///DisasterResponse.db')
+df.to_sql('DisasterResponse', engine, index=False)
