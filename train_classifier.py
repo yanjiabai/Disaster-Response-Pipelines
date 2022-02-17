@@ -27,12 +27,14 @@ def load_data(database_filepath):
     Output:
     X: the 'message' column of the database
     Y: the 'category' columns of the database
+    category_names: list, containing the names of the category columns
     '''
     engine = create_engine('sqlite:///{}'.format(database_filepath)) 
-    df = pd.read_sql_table('DisasterResponse', engine)
+    df = pd.read_sql_table(database_filepath, engine)
     X = df['message']
     Y = df[[col for col in df.columns if 'category' in col]]
-    return X, Y
+    category_names = Y.columns
+    return X, Y, category_names
 
 
 def tokenize(text):
