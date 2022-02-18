@@ -3,6 +3,7 @@ import re
 import numpy as np
 import pandas as pd
 import time
+import pickle
 from sqlalchemy import create_engine
 
 import nltk
@@ -19,7 +20,7 @@ from sklearn.multioutput import MultiOutputClassifier
 
 def load_data(database_filepath):
     '''
-    load data from database
+    load data from database. Notice an extra step to replace all 2 in the category columns by 0.
     
     Input:
     database_filepath: string, the file path of database
@@ -34,6 +35,9 @@ def load_data(database_filepath):
     X = df['message']
     Y = df[[col for col in df.columns if 'category' in col]]
     category_names = Y.columns
+    
+    # replace all 2 in y by 0 
+    Y = Y.replace(2, 0)
     return X, Y, category_names
 
 
@@ -84,8 +88,8 @@ def build_model():
     ])
     
     parameters = {
-            'clf__estimator__n_estimators': [10, 20, 30],
-            'clf__estimator__min_samples_split': [2, 4, 6],
+            'clf__estimator__n_estimators': [20, 30],
+            'clf__estimator__min_samples_split': [2, 4],
         }
 
     cv = GridSearchCV(pipeline, param_grid=parameters)
@@ -109,7 +113,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_pred = model.predict(X_test)
     print("\nBest Parameters:", model.best_params_)
     print('After tuning, the accuracy score is ', accuracy_score(Y_test.values.flatten(), Y_pred.flatten()))
-    print('\nThe classification report is \n', classification_report(Y_test.values[:,], Y_pred, target_names = category_names))
+    print('\nThe classification report is \n', classification_report(Y_test.values[:,], Y_pred, target_names = Y_test.columns))
 
 
 def save_model(model, model_filepath):
