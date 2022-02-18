@@ -1,8 +1,8 @@
-## Disaster-Response-Pipelines
-# Introduction
+# Disaster-Response-Pipelines
+## Introduction
 This repository deals with disaster-related messages using ETL pipelines and NLP tools. It loads in data containing disaster-related messages, cleans the data, trains a machine learning model to classify the data into categories, then presents three data visualizations in a web app. This is a project of Udacity Data Scientist Nanodegree Program. 
 
-# File structures
+## File structures
 - app
 | - template
 | |- master.html  # main page of web app
@@ -21,7 +21,7 @@ This repository deals with disaster-related messages using ETL pipelines and NLP
 
 - README.md
 
-# Instruction
+## Instruction
 Please follow these steps to run the codes.
 1. Run the following commands in the project's root directory to set up your database and model.
 
