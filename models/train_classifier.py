@@ -35,9 +35,7 @@ def load_data(database_filepath):
     X = df['message']
     Y = df[[col for col in df.columns if 'category' in col]]
     category_names = Y.columns
-    
-    # replace all 2 in y by 0 
-    Y = Y.replace(2, 0)
+   
     return X, Y, category_names
 
 
